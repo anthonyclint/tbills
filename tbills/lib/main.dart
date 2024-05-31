@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tbills/models/transaction.dart';
+import 'package:intl/intl.dart'; //importanto o pacote intl para manipular data
 
 //método que executa o app
 main() => runApp(TbillsApp());
@@ -18,7 +19,7 @@ class TbillsApp extends StatelessWidget {
 
 class HomePage extends StatelessWidget {
   //construtor
-  //const HomePage({super.key});
+  HomePage({super.key});
 
   final _transactions = [
     Transaction(
@@ -87,7 +88,7 @@ class HomePage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          tr.date.toString(),
+                          DateFormat('d MMM y').format(tr.date),
                           style: const TextStyle(
                             color: Colors.grey,
                           ),
