@@ -28,17 +28,19 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Despesas Pessoais'),
       ),
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity, //largura infinita
-            child: Card(
-              child: Text('Gráfico'),
-              elevation: 5,
+      body: SingleChildScrollView( //tornando scrollavel
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity, //largura infinita
+              child: Card(
+                child: Text('Gráfico'),
+                elevation: 5,
+              ),
             ),
-          ),
-          TransactionUser(),
-        ],
+            TransactionUser(),
+          ],
+        ),
       ),
     );
   }

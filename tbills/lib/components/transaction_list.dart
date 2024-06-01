@@ -3,61 +3,68 @@ import 'package:tbills/models/transaction.dart';
 import 'package:intl/intl.dart'; //importanto o pacote intl para manipular data
 
 class TransactionList extends StatelessWidget {
-
   final List<Transaction> transaction;
-  
+
   TransactionList({super.key, required this.transaction});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-            children: transaction.map((tr) {
-              return Card(
-                child: Row(
+    return Container(
+      //limitando o scrollamento
+      height: 500, //300,
+      child: ListView.builder(
+        itemCount: transaction.length, //restringindo a renderização dos elementos da lista
+        itemBuilder: (newContext, index) { //constrói os elementos da lista sob demanda
+          
+          final tr = transaction[index];
+
+          return Card(
+            child: Row(
+              children: [
+                Container(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 10,
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.green[400]!,
+                      width: 2,
+                    ),
+                  ),
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    'R\$ ${tr.value.toStringAsFixed(2)}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.purple,
+                    ),
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.green[400]!,
-                          width: 2,
-                        ),
-                      ),
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                        'R\$ ${tr.value.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.purple,
-                        ),
+                    Text(
+                      tr.title,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          tr.title,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          DateFormat('d MMM y').format(tr.date),
-                          style: const TextStyle(
-                            color: Colors.grey,
-                          ),
-                        )
-                      ],
-                    ),
+                    Text(
+                      DateFormat('d MMM y').format(tr.date),
+                      style: const TextStyle(
+                        color: Colors.grey,
+                      ),
+                    )
                   ],
                 ),
-              );
-            }).toList(),
+              ],
+            ),
           );
+        },
+      ),
+    );
   }
 }
