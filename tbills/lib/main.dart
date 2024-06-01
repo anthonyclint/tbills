@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:tbills/components/transaction_user.dart';
 import 'package:tbills/models/transaction.dart';
@@ -50,6 +52,13 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+        
+        },
+      ),
+      //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat, //serve para centralizar o botão
     );
   }
 }
