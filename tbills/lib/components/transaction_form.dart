@@ -8,6 +8,18 @@ class TransactionForm extends StatelessWidget {
 
   TransactionForm({super.key, required this.onSubmit});
 
+  _submitForm() {
+    final title = titleController.text;
+    final cost = double.tryParse(costController.text) ??
+        0.0; //tentará converter para double, caso não consiga considerará 0
+
+    if (title.isEmpty || cost <= 0) {
+      return; //encerra o método
+    }
+
+    onSubmit(title, cost);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -18,16 +30,19 @@ class TransactionForm extends StatelessWidget {
           children: [
             TextField(
               controller: titleController,
+              onSubmitted: (_) => _submitForm(),
               decoration: InputDecoration(
                 labelText: 'Título',
               ),
             ),
             TextField(
               controller: costController,
+              onSubmitted: (_) => _submitForm(), //submeter o formulário se os campos estiverem preenchidos clicando no checkin do teclado sem pressionar o botão
               decoration: InputDecoration(
                 labelText: 'Valor (R\$)',
               ),
-              keyboardType: TextInputType.number,
+              keyboardType: const TextInputType.numberWithOptions(
+                  decimal:true), //opção para que o mesmo comportamento de mudança de teclado ocorra em IOS
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -36,10 +51,7 @@ class TransactionForm extends StatelessWidget {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      final title = titleController.text;
-                      final cost = double.tryParse(costController.text) ??
-                          0.0; //tentará converter para double, caso não consiga considerará 0
-                      onSubmit(title, cost);
+                      _submitForm();
                     },
                     child: Text('Nova transação'),
                   ),
