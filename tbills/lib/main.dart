@@ -1,9 +1,10 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:tbills/components/transaction_user.dart';
-import 'package:tbills/models/transaction.dart';
 
+import 'dart:math'; //importado para utilizar a função Random
+
+import 'package:tbills/components/transaction_form.dart';
+import 'package:tbills/components/transaction_list.dart';
+import 'package:tbills/models/transaction.dart';
 
 //método que executa o app
 main() => runApp(TbillsApp());
@@ -20,9 +21,51 @@ class TbillsApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
-  //construtor
-  //HomePage({super.key});
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final _transactions = [
+    Transaction(
+      id: 't1',
+      title: 'Tênis de corrida',
+      value: 310.76,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Conta de Luz',
+      value: 211.30,
+      date: DateTime.now(),
+    )
+  ];
+
+  _addTransaction(String title, double costValue) {
+    final newTransaction = Transaction(
+      id: Random().nextDouble().toString(),
+      title: title,
+      value: costValue,
+      date: DateTime.now(),
+    );
+
+    setState(() {
+      _transactions.add(newTransaction);
+    });
+
+    Navigator.of(context).pop(); //fechando o modal
+  }
+
+  _openTransactionFormModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        // o underline é para indicar que o contexto não é necessário
+        return TransactionForm(onSubmit: _addTransaction);
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +75,12 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () {
-              
-            },
+            onPressed: () => _openTransactionFormModal(context),
           ),
         ],
       ),
-      body: SingleChildScrollView( //tornando scrollavel
+      body: SingleChildScrollView(
+        //tornando scrollavel
         child: Column(
           children: [
             Container(
@@ -48,15 +90,13 @@ class HomePage extends StatelessWidget {
                 elevation: 5,
               ),
             ),
-            TransactionUser(),
+            TransactionList(transaction: _transactions),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {
-        
-        },
+        onPressed: () => _openTransactionFormModal(context),
       ),
       //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat, //serve para centralizar o botão
     );
