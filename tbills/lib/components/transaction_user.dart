@@ -1,10 +1,11 @@
+import 'dart:math'; //importado para utilizar a função Random
+
 import 'package:flutter/material.dart';
 import 'package:tbills/components/transaction_form.dart';
 import 'package:tbills/components/transaction_list.dart';
 import 'package:tbills/models/transaction.dart';
 
 class TransactionUser extends StatefulWidget {
-  
   const TransactionUser({super.key});
 
   @override
@@ -12,7 +13,6 @@ class TransactionUser extends StatefulWidget {
 }
 
 class _TransactionUserState extends State<TransactionUser> {
-
   final _transactions = [
     Transaction(
       id: 't1',
@@ -28,12 +28,25 @@ class _TransactionUserState extends State<TransactionUser> {
     )
   ];
 
+  _addTransaction(String title, double costValue) {
+    final newTransaction = Transaction(
+      id: Random().nextDouble().toString(),
+      title: title,
+      value: costValue,
+      date: DateTime.now(),
+    );
+
+    setState(() {
+      _transactions.add(newTransaction);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TransactionList(transaction: _transactions),
-        TransactionForm(),
+        TransactionForm(onSubmit:  _addTransaction),
       ],
     );
   }
