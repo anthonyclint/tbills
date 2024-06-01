@@ -27,6 +27,14 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Despesas Pessoais'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
+              
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView( //tornando scrollavel
         child: Column(
