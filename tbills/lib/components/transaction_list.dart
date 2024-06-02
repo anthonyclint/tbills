@@ -4,7 +4,7 @@ import 'package:intl/intl.dart'; //importanto o pacote intl para manipular data
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transaction;
-
+//color: Theme.of(context).colorScheme.primary,
   TransactionList({super.key, required this.transaction});
 
   @override
@@ -28,7 +28,7 @@ class TransactionList extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.green[400]!,
+                      color: Colors.amber[400]!,
                       width: 2,
                     ),
                   ),
@@ -38,7 +38,7 @@ class TransactionList extends StatelessWidget {
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
-                      color: Colors.purple,
+                      color: Colors.amber,
                     ),
                   ),
                 ),

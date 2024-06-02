@@ -36,14 +36,14 @@ class _TransactionFormState extends State<TransactionForm> {
             TextField(
               controller: titleController,
               onSubmitted: (_) => _submitForm(),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Título',
               ),
             ),
             TextField(
               controller: costController,
               onSubmitted: (_) => _submitForm(), //submeter o formulário se os campos estiverem preenchidos clicando no checkin do teclado sem pressionar o botão
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Valor (R\$)',
               ),
               keyboardType: const TextInputType.numberWithOptions(
@@ -58,7 +58,15 @@ class _TransactionFormState extends State<TransactionForm> {
                     onPressed: () {
                       _submitForm();
                     },
-                    child: Text('Nova transação'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepPurple,
+                    ),
+                    child: const Text(
+                      'Nova transação',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ],
               ),
